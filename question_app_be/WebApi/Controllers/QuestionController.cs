@@ -1,5 +1,7 @@
-﻿using Business.Abstract;
+﻿using AutoMapper;
+using Business.Abstract;
 using Entities.Concrete;
+using Entities.Concrete.Dto.Request.Question;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -11,43 +13,47 @@ namespace WebApi.Controllers
     public class QuestionController : ControllerBase
     {
         private IQuestionService _questionService;
+        private IMapper _mapper;
 
-        public QuestionController(IQuestionService questionService)
+        public QuestionController(IQuestionService questionService, IMapper mapper)
         {
             _questionService = questionService;
+            _mapper = mapper;
         }
 
         // GET: api/<QuestionController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public ActionResult<List<Question>> GetAll()
         {
-            return new string[] { "value1", "value2" };
+            return Ok(_questionService.GetAll());
         }
 
         // GET api/<QuestionController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public ActionResult<Question> Get(int id)
         {
-            return "value";
+            return Ok(_questionService.Get(id));
         }
 
         // POST api/<QuestionController>
         [HttpPost]
-        public IActionResult Post([FromBody] Question value)
+        public ActionResult<Question> Post([FromBody] CreateQuestionDto request)
         {
-            return Ok(_questionService.Create(value));
+            return Ok(_questionService.Create(_mapper.Map<Question>(request)));
         }
 
         // PUT api/<QuestionController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        public ActionResult<Boolean> Put([FromBody] UpdateQuestionDto request)
         {
+            return Ok(_questionService.Update(_mapper.Map<Question>(request)));
         }
 
         // DELETE api/<QuestionController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public ActionResult<Boolean> Delete(int id)
         {
+            return Ok(_questionService.Delete(id));
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Business.Abstract
         List<T> GetAll();
         T Get(int id);
         T Create(T entity);
-        void Update();
-        void Delete();
+        Boolean Update(T entity);
+        Boolean Delete(int id);
     }
 }

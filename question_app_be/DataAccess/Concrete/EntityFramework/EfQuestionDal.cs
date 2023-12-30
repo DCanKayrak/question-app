@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    public class EfQuestionDal : EfEntityRepository<Question,QuestionContext>
+    public class EfQuestionDal : EfEntityRepository<Question,DataContext>
     {
 
     }

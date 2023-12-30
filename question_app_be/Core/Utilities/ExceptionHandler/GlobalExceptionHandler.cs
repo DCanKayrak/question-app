@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.Concrete.Enum
+namespace Core.Utilities.ExceptionHandler
 {
-    public enum QuestionStatus
+    public class GlobalExceptionHandler
     {
-        NotAnswered,
-        Answered
     }
 }

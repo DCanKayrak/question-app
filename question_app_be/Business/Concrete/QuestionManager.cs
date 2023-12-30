@@ -11,32 +11,34 @@ namespace Business.Concrete
 {
     public class QuestionManager : IQuestionService
     {
-        private EfQuestionDal efQuestionDal = new EfQuestionDal();
+        private EfQuestionDal _efQuestionDal = new EfQuestionDal();
 
         public Question Create(Question entity)
         {
-            efQuestionDal.Create(entity);
+            _efQuestionDal.Create(entity);
             return entity;
         }
 
-        public void Delete()
+        public Boolean Delete(int id)
         {
-            throw new NotImplementedException();
+            _efQuestionDal.Delete(_efQuestionDal.Get(p => p.Id == id));
+            return true;
         }
 
         public Question Get(int id)
         {
-            throw new NotImplementedException();
+            return _efQuestionDal.Get(q => q.Id == id);
         }
 
         public List<Question> GetAll()
         {
-            throw new NotImplementedException();
+            return _efQuestionDal.GetAll(null);
         }
 
-        public void Update()
+        public Boolean Update(Question request)
         {
-            throw new NotImplementedException();
+            _efQuestionDal.Update(request);
+            return true;
         }
     }
 }

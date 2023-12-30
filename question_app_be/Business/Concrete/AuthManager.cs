@@ -17,7 +17,7 @@ namespace Business.Concrete
             throw new NotImplementedException();
         }
 
-        public void Delete()
+        public Boolean Delete(int id)
         {
             throw new NotImplementedException();
         }
@@ -42,7 +42,7 @@ namespace Business.Concrete
             throw new NotImplementedException();
         }
 
-        public void Update()
+        public Boolean Update(User request)
         {
             throw new NotImplementedException();
         }

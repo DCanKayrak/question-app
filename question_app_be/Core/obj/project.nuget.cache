@@ -1,8 +1,16 @@
 {
   "version": 2,
-  "dgSpecHash": "xprfb3CH963EpzrvtOfqqWJxKKplU9Ks3MR3r4XSPLByZ1JrmxhBVQdpLceCcloWgeGHArQAuus8s07WaIM8vg==",
+  "dgSpecHash": "e3ZE0Nd0PeQRzgCSBwOWqlYBUwV6Av+DgdJ3sgw8z/vdd3pyTdIfzl6dhPV7420sak+M+w3TBfKTdFQQYKC6kg==",
   "success": true,
   "projectFilePath": "C:\\Users\\danya\\OneDrive\\Masaüstü\\Çalışmalarım\\question_app\\question_app_be\\Core\\Core.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\danya\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\7.0.0\\microsoft.extensions.configuration.abstractions.7.0.0.nupkg.sha512",
+    "C:\\Users\\danya\\.nuget\\packages\\microsoft.extensions.primitives\\7.0.0\\microsoft.extensions.primitives.7.0.0.nupkg.sha512",
+    "C:\\Users\\danya\\.nuget\\packages\\microsoft.identitymodel.abstractions\\7.0.3\\microsoft.identitymodel.abstractions.7.0.3.nupkg.sha512",
+    "C:\\Users\\danya\\.nuget\\packages\\microsoft.identitymodel.jsonwebtokens\\7.0.3\\microsoft.identitymodel.jsonwebtokens.7.0.3.nupkg.sha512",
+    "C:\\Users\\danya\\.nuget\\packages\\microsoft.identitymodel.logging\\7.0.3\\microsoft.identitymodel.logging.7.0.3.nupkg.sha512",
+    "C:\\Users\\danya\\.nuget\\packages\\microsoft.identitymodel.tokens\\7.0.3\\microsoft.identitymodel.tokens.7.0.3.nupkg.sha512",
+    "C:\\Users\\danya\\.nuget\\packages\\system.identitymodel.tokens.jwt\\7.0.3\\system.identitymodel.tokens.jwt.7.0.3.nupkg.sha512"
+  ],
   "logs": []
 }
