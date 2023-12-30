@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Business.Abstract
 {
-    public interface IQuestionService : IService<Question>
+    public interface IQuestionService : ICrudService<Question>
     {
 
     }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entities.Abstract;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Entities.Concrete.Dto.Request.Category
 {
-    public class UpdateCategoryDto
+    public class UpdateCategoryDto : IDto
     {
         public int Id { get; set; }
         public int ParentId { get; set; }

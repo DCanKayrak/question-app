@@ -9,7 +9,7 @@ using Entities.Abstract;
 
 namespace DataAccess.Abstract
 {
-    public interface IEntityDal<T> where T : class, IEntity, new()
+    public interface IEntityRepository<T> where T : class, IEntity, new()
     {
         List<T> GetAll(Expression<Func<T, bool>> filter);
         T Get(Expression<Func<T, bool>> filter);

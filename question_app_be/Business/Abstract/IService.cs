@@ -6,12 +6,8 @@ using System.Threading.Tasks;
 
 namespace Business.Abstract
 {
-    public interface IService<T>
+    public interface IService
     {
-        List<T> GetAll();
-        T Get(int id);
-        T Create(T entity);
-        Boolean Update(T entity);
-        Boolean Delete(int id);
+        
     }
 }

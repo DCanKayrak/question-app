@@ -12,16 +12,23 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    public class EfEntityRepository<TEntity, TContext> : IEntityDal<TEntity> where TEntity : class, IEntity, new()
+    public class EfEntityRepository<TEntity, TContext> : IEntityRepository<TEntity> where TEntity : class, IEntity, new()
         where TContext : DbContext, new()
     {
         public void Create(TEntity entity)
         {
             using (TContext context = new TContext())
             {
-                var ent = context.Entry(entity);
-                ent.State = EntityState.Added;
-                context.SaveChanges();
+                try
+                {
+                    var ent = context.Entry(entity);
+                    ent.State = EntityState.Added;
+                    context.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    throw new GenericException(ErrorResponse.NOT_FOUND);
+                }
             }
         }
 

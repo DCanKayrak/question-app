@@ -1,7 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Concrete;
 using Entities.Concrete;
-using Entities.Concrete.Dto.Request;
+using Entities.Concrete.Dto.Request.Auth;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.utils.constants;
@@ -19,9 +19,15 @@ namespace WebApi.Controllers
         }
 
         [HttpGet(Apis.Auth.LOGIN)]
-        public IActionResult Login([FromBody] RegisterRequestDto request)
+        public async Task<IActionResult> Login([FromBody] LoginRequestDto req)
         {
             return Ok();
-        } 
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Register([FromBody] RegisterRequestDto req)
+        {
+            return Ok();
+        }
     }
 }

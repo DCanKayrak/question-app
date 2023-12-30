@@ -1,14 +1,16 @@
 {
   "version": 2,
-  "dgSpecHash": "eRxazFFwqWK8Rw7r+k9G4BHx1WyR0Wpd7fPMbyEbPWBQW8KcwVXDhJqI0nUEdPQQHvFpGP/jtqaxKhKV+DupSw==",
+  "dgSpecHash": "2YrDZUdyYSyZK512VHXs2XK1zSwo4gI6gmvYb/yk/ZACshbiH3/pjaXRCTDIaLJkYyFGDbCZjHwk8zujxfmU3g==",
   "success": true,
   "projectFilePath": "C:\\Users\\danya\\OneDrive\\Masaüstü\\Çalışmalarım\\question_app\\question_app_be\\Business\\Business.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\danya\\.nuget\\packages\\autofac\\6.5.0\\autofac.6.5.0.nupkg.sha512",
     "C:\\Users\\danya\\.nuget\\packages\\autofac.extensions.dependencyinjection\\8.0.0\\autofac.extensions.dependencyinjection.8.0.0.nupkg.sha512",
     "C:\\Users\\danya\\.nuget\\packages\\autofac.extras.dynamicproxy\\7.1.0\\autofac.extras.dynamicproxy.7.1.0.nupkg.sha512",
+    "C:\\Users\\danya\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\danya\\.nuget\\packages\\castle.core\\5.1.1\\castle.core.5.1.1.nupkg.sha512",
     "C:\\Users\\danya\\.nuget\\packages\\fluentvalidation\\11.9.0\\fluentvalidation.11.9.0.nupkg.sha512",
+    "C:\\Users\\danya\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\danya\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.14\\microsoft.entityframeworkcore.7.0.14.nupkg.sha512",
     "C:\\Users\\danya\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\7.0.14\\microsoft.entityframeworkcore.abstractions.7.0.14.nupkg.sha512",
     "C:\\Users\\danya\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\7.0.14\\microsoft.entityframeworkcore.analyzers.7.0.14.nupkg.sha512",

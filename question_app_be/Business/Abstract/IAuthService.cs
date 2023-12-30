@@ -1,5 +1,5 @@
 ﻿using Entities.Concrete;
-using Entities.Concrete.Dto.Request;
+using Entities.Concrete.Dto.Request.Auth;
 using Entities.Concrete.Dto.Response;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Business.Abstract
 {
-    public interface IAuthService : IService<User>
+    public interface IAuthService : IService
     {
         public Task<BaseResponse<AuthResponse>> Register(RegisterRequestDto request);
         public Task<BaseResponse<AuthResponse>> Login(LoginRequestDto request);

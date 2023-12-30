@@ -1,4 +1,5 @@
-﻿using DataAccess.Concrete.EntityFramework.Context;
+﻿using DataAccess.Abstract;
+using DataAccess.Concrete.EntityFramework.Context;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    public class EfQuestionDal : EfEntityRepository<Question,DataContext>
+    public class EfQuestionDal : EfEntityRepository<Question,DataContext>, IQuestionRepository
     {
 
     }

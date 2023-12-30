@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using Business.Abstract;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Validation;
 using Entities.Concrete;
 using Entities.Concrete.Dto.Request.Question;
 using Microsoft.AspNetCore.Mvc;
@@ -23,35 +25,36 @@ namespace WebApi.Controllers
 
         // GET: api/<QuestionController>
         [HttpGet]
-        public ActionResult<List<Question>> GetAll()
+        public IActionResult GetAll()
         {
             return Ok(_questionService.GetAll());
         }
 
         // GET api/<QuestionController>/5
         [HttpGet("{id}")]
-        public ActionResult<Question> Get(int id)
+        public IActionResult Get(int id)
         {
             return Ok(_questionService.Get(id));
         }
 
         // POST api/<QuestionController>
         [HttpPost]
-        public ActionResult<Question> Post([FromBody] CreateQuestionDto request)
+        [ValidationAspect(typeof(QuestionValidator))]
+        public IActionResult Post([FromBody] CreateQuestionDto request)
         {
             return Ok(_questionService.Create(_mapper.Map<Question>(request)));
         }
 
         // PUT api/<QuestionController>/5
         [HttpPut]
-        public ActionResult<Boolean> Put([FromBody] UpdateQuestionDto request)
+        public IActionResult Put([FromBody] UpdateQuestionDto request)
         {
             return Ok(_questionService.Update(_mapper.Map<Question>(request)));
         }
 
         // DELETE api/<QuestionController>/5
         [HttpDelete("{id}")]
-        public ActionResult<Boolean> Delete(int id)
+        public IActionResult Delete(int id)
         {
             return Ok(_questionService.Delete(id));
         }

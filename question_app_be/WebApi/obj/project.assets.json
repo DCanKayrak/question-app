@@ -785,6 +785,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
+          "AutoMapper": "12.0.1",
           "Autofac.Extensions.DependencyInjection": "8.0.0",
           "Autofac.Extras.DynamicProxy": "7.1.0",
           "DataAccess": "1.0.0",
@@ -803,7 +804,9 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
+          "Castle.Core": "5.1.1",
           "Entities": "1.0.0",
+          "FluentValidation": "11.9.0",
           "Microsoft.Extensions.Configuration.Abstractions": "7.0.0",
           "Microsoft.IdentityModel.Tokens": "7.0.3",
           "System.IdentityModel.Tokens.Jwt": "7.0.3"

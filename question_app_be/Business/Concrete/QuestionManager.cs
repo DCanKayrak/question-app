@@ -1,6 +1,9 @@
-﻿using Business.Abstract;
+﻿using AutoMapper;
+using Business.Abstract;
+using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
+using Entities.Concrete.Dto.Response;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,34 +14,41 @@ namespace Business.Concrete
 {
     public class QuestionManager : IQuestionService
     {
-        private EfQuestionDal _efQuestionDal = new EfQuestionDal();
+        private IQuestionRepository _questionRepository;
+        private IMapper _mapper;
 
-        public Question Create(Question entity)
+        public QuestionManager(IQuestionRepository questionRepository, IMapper mapper)
         {
-            _efQuestionDal.Create(entity);
-            return entity;
+            _questionRepository = questionRepository;
+            _mapper = mapper;
         }
 
-        public Boolean Delete(int id)
+        public BaseResponse<Question> Create(Question entity)
         {
-            _efQuestionDal.Delete(_efQuestionDal.Get(p => p.Id == id));
-            return true;
+            _questionRepository.Create(entity);
+            return new BaseResponse<Question>(entity);
         }
 
-        public Question Get(int id)
+        public BaseResponse<Boolean> Delete(int id)
         {
-            return _efQuestionDal.Get(q => q.Id == id);
+            _questionRepository.Delete(_questionRepository.Get(p => p.Id == id));
+            return new BaseResponse<bool>(true);
         }
 
-        public List<Question> GetAll()
+        public BaseResponse<Question> Get(int id)
         {
-            return _efQuestionDal.GetAll(null);
+            return new BaseResponse<Question>(_questionRepository.Get(q => q.Id == id));
         }
 
-        public Boolean Update(Question request)
+        public BaseResponse<List<Question>> GetAll()
         {
-            _efQuestionDal.Update(request);
-            return true;
+            return new BaseResponse<List<Question>>(_questionRepository.GetAll(null));
+        }
+
+        public BaseResponse<Boolean> Update(Question request)
+        {
+            _questionRepository.Update(request);
+            return new BaseResponse<bool>(true);
         }
     }
 }

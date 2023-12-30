@@ -10,7 +10,7 @@ namespace Core.Utilities.ExceptionHandler
 {
     public class GenericException : Exception
     {
-        private ErrorResponse ErrorResponse { get; set; }
+        public ErrorResponse ErrorResponse { get; set; }
         public GenericException(ErrorResponse errorResponse)
         {
             ErrorResponse = errorResponse;
