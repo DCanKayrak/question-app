@@ -3,8 +3,9 @@ import React from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import QuestionTable from '../components/QuestionTable';
+import { Categories } from '../components/Categories';
 
-export default function MainPage() {
+export const MainPage = () => {
   return (
     <div>
         <Header></Header>
@@ -16,7 +17,7 @@ export default function MainPage() {
                     <QuestionTable></QuestionTable>
                 </div>
                 <div className='col-3'>
-                    <button className='btn btn-success'>Soru Sor</button>
+                    <a href='/questions/make' className='btn btn-success'>Soru Sor</a>
                 </div>
             </div>
             
@@ -26,3 +27,4 @@ export default function MainPage() {
     </div>
   )
 }
+

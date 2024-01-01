@@ -1,4 +1,5 @@
-﻿using Business.Abstract;
+﻿using AutoMapper;
+using Business.Abstract;
 using Business.Concrete;
 using Entities.Concrete;
 using Entities.Concrete.Dto.Request.Auth;
@@ -12,22 +13,45 @@ namespace WebApi.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private IQuestionService _questionService;
-        private AuthController(IQuestionService questionService)
+        private IAuthService _authService;
+        public AuthController(IAuthService authService)
         {
-            _questionService = questionService;
+            _authService = authService;
         }
-
-        [HttpGet(Apis.Auth.LOGIN)]
-        public async Task<IActionResult> Login([FromBody] LoginRequestDto req)
+        [HttpPost("Register")]
+        public IActionResult Register(RegisterRequestDto req)
         {
-            return Ok();
+            var userExist = _authService.UserExists(req.Email);
+
+            if (!userExist.Success)
+            {
+                return BadRequest(userExist.Message);
+            }
+            var registerUser = _authService.Register(req, req.Password);
+            var result = _authService.CreateAccessToken(registerUser.Data);
+            if (!registerUser.Success)
+            {
+                return BadRequest(registerUser.Message);
+            }
+            return Ok(result.Data);
+
         }
-
-        [HttpPost]
-        public async Task<IActionResult> Register([FromBody] RegisterRequestDto req)
+        [HttpPost("Login")]
+        public IActionResult Login(LoginRequestDto req)
         {
-            return Ok();
+            var userToLogin = _authService.Login(req);
+            var result = _authService.CreateAccessToken(userToLogin.Data);
+            if (!userToLogin.Success)
+            {
+                return BadRequest(userToLogin.Message);
+            }
+            if (result.Success)
+            {
+                return Ok(result.Data);
+            }
+
+            return BadRequest(result.Message);
+
         }
     }
 }

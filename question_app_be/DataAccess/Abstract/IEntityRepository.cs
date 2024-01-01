@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
-using Entities.Abstract;
+using Core.Entity.Abstract;
 
 namespace DataAccess.Abstract
 {

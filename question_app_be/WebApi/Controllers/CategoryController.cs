@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Business.Abstract;
-using Core.Utilities.ExceptionHandler;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.Concrete.Dto.Request.Category;
@@ -34,50 +33,21 @@ namespace WebApi.Controllers
 
         [HttpPost]
         public IActionResult Create(CreateCategoryDto req)
-        {
-            try
-            {
-                
+        {   
                 return Ok(_categoryService.Create(_mapper.Map<Category>(req)));
-            }
-            catch (GenericException ex)
-            {
-                return BadRequest(ex.ErrorResponse.Message);
-            }
         }
         [HttpPut]
         public IActionResult Update(UpdateCategoryDto req)
         {
-            try
-            {
-                return Ok(_categoryService.Update(_mapper.Map<Category>(req)));
-            }
-            catch (GenericException ex)
-            {
-                return BadRequest(ex.ErrorResponse.Message);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+                _categoryService.Update(_mapper.Map<Category>(req));
+                return Ok();
         }
 
         [HttpDelete]
         public IActionResult Delete(int id)
         {
-            try
-            {
-                return Ok(_categoryService.Delete(id));
-            }
-            catch (GenericException ex)
-            {
-                return BadRequest(ex.ErrorResponse.Message);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            
+                _categoryService.Delete(id);
+                return Ok();        
         }
     }
 }

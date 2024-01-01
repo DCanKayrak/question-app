@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Business.Abstract;
-using Core.Utilities.ExceptionHandler;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.Concrete.Dto.Response;
@@ -21,36 +20,36 @@ namespace Business.Concrete
             _categoryRepository = categoryRepository;
             _mapper = mapper;
         }
-        public BaseResponse<Category> Create(Category entity)
+        public Category Create(Category entity)
         {
             try
             {
                 _categoryRepository.Create(entity);
-                return new BaseResponse<Category>(entity);
+                return entity;
             }
-            catch (GenericException ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
             
         }
 
-        public BaseResponse<bool> Delete(int id)
+        public void Delete(int id)
         {
             throw new NotImplementedException();
         }
 
-        public BaseResponse<Category> Get(int id)
+        public Category Get(int id)
         {
             throw new NotImplementedException();
         }
 
-        public BaseResponse<List<Category>> GetAll()
+        public List<Category> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public BaseResponse<bool> Update(Category entity)
+        public void Update(Category entity)
         {
             throw new NotImplementedException();
         }

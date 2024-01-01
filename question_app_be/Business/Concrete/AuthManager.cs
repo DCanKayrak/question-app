@@ -1,5 +1,10 @@
 ﻿using Business.Abstract;
-using Entities.Concrete;
+using Business.Constants;
+using Core.Entity.Concrete;
+using Core.Utilities.Results.Abstract;
+using Core.Utilities.Results.Concrete;
+using Core.Utilities.Security.Hashing;
+using Core.Utilities.Security.JWT;
 using Entities.Concrete.Dto.Request.Auth;
 using Entities.Concrete.Dto.Response;
 using System;
@@ -13,14 +18,60 @@ namespace Business.Concrete
     public class AuthManager : IAuthService
     {
 
-        public Task<BaseResponse<AuthResponse>> Login(LoginRequestDto request)
+        IUserService _userService;
+        ITokenHelper _tokenHelper;
+        public AuthManager(IUserService userService, ITokenHelper tokenHelper)
         {
-            throw new NotImplementedException();
+            _tokenHelper = tokenHelper;
+            _userService = userService;
+
         }
 
-        public Task<BaseResponse<AuthResponse>> Register(RegisterRequestDto request)
+        public IDataResult<AccessToken> CreateAccessToken(User user)
         {
-            throw new NotImplementedException();
+            var claims = _userService.GetClaims(user);
+            var accessToken = _tokenHelper.CreateToken(user, claims);
+            return new SuccessDataResult<AccessToken>(accessToken, Message.AccessTokenCreated);
+        }
+
+        public IDataResult<User> Login(LoginRequestDto req)
+        {
+            var userToCheck = _userService.GetByMail(req.Email);
+            if (userToCheck == null)
+            {
+                return new ErrorDataResult<User>(Message.UserNotFound);
+            }
+            if (!HashingHelper.VerifyPasswordHash(req.Password, userToCheck.PasswordSalt, userToCheck.PasswordHash))
+            {
+                return new ErrorDataResult<User>(Message.PasswordError);
+            }
+            return new SuccessDataResult<User>(userToCheck, Message.SuccessfulLogin);
+        }
+
+        public IDataResult<User> Register(RegisterRequestDto req, string password)
+        {
+            byte[] passwordHash, passwordSalt;
+            HashingHelper.CreatePasswordHash(password, out passwordSalt, out passwordHash);
+            var user = new User
+            {
+                Email = req.Email,
+                FirstName = req.FirstName,
+                LastName = req.LastName,
+                PasswordHash = passwordHash,
+                PasswordSalt = passwordSalt,
+                Status = true
+            };
+            _userService.Create(user);
+            return new SuccessDataResult<User>(user, Message.UserRegistered);
+        }
+
+        public IResult UserExists(string email)
+        {
+            if (_userService.GetByMail(email) != null)
+            {
+                return new ErrorResult(Message.UserAlreadyExists);
+            }
+            return new SuccessResult();
         }
     }
 }

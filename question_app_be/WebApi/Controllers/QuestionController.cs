@@ -49,14 +49,16 @@ namespace WebApi.Controllers
         [HttpPut]
         public IActionResult Put([FromBody] UpdateQuestionDto request)
         {
-            return Ok(_questionService.Update(_mapper.Map<Question>(request)));
+            _questionService.Update(_mapper.Map<Question>(request));
+            return Ok();
         }
 
         // DELETE api/<QuestionController>/5
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            return Ok(_questionService.Delete(id));
+            _questionService.Delete(id);
+            return Ok();
         }
     }
 }

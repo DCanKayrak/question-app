@@ -1,4 +1,7 @@
-﻿using Entities.Concrete;
+﻿using Core.Entity.Concrete;
+using Core.Utilities.Results.Abstract;
+using Core.Utilities.Security.JWT;
+using Entities.Concrete;
 using Entities.Concrete.Dto.Request.Auth;
 using Entities.Concrete.Dto.Response;
 using System;
@@ -11,7 +14,9 @@ namespace Business.Abstract
 {
     public interface IAuthService : IService
     {
-        public Task<BaseResponse<AuthResponse>> Register(RegisterRequestDto request);
-        public Task<BaseResponse<AuthResponse>> Login(LoginRequestDto request);
+        IDataResult<User> Register(RegisterRequestDto req, string password);
+        IDataResult<User> Login(LoginRequestDto req);
+        IResult UserExists(string email);
+        IDataResult<AccessToken> CreateAccessToken(User user);
     }
 }

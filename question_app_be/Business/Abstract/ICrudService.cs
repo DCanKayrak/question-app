@@ -9,10 +9,10 @@ namespace Business.Abstract
 {
     public interface ICrudService<T> : IService
     {
-        BaseResponse<List<T>> GetAll();
-        BaseResponse<T> Get(int id);
-        BaseResponse<T> Create(T entity);
-        BaseResponse<Boolean> Update(T entity);
-        BaseResponse<Boolean> Delete(int id);
+        List<T> GetAll();
+        T Get(int id);
+        T Create(T entity);
+        void Update(T entity);
+        void Delete(int id);
     }
 }

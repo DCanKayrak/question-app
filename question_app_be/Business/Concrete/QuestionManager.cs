@@ -23,32 +23,30 @@ namespace Business.Concrete
             _mapper = mapper;
         }
 
-        public BaseResponse<Question> Create(Question entity)
+        public Question Create(Question entity)
         {
             _questionRepository.Create(entity);
-            return new BaseResponse<Question>(entity);
+            return entity;
         }
 
-        public BaseResponse<Boolean> Delete(int id)
+        public void Delete(int id)
         {
             _questionRepository.Delete(_questionRepository.Get(p => p.Id == id));
-            return new BaseResponse<bool>(true);
         }
 
-        public BaseResponse<Question> Get(int id)
+        public Question Get(int id)
         {
-            return new BaseResponse<Question>(_questionRepository.Get(q => q.Id == id));
+            return _questionRepository.Get(q => q.Id == id);
         }
 
-        public BaseResponse<List<Question>> GetAll()
+        public List<Question> GetAll()
         {
-            return new BaseResponse<List<Question>>(_questionRepository.GetAll(null));
+            return _questionRepository.GetAll(null);
         }
 
-        public BaseResponse<Boolean> Update(Question request)
+        public void Update(Question request)
         {
             _questionRepository.Update(request);
-            return new BaseResponse<bool>(true);
         }
     }
 }
