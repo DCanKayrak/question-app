@@ -10,6 +10,8 @@ namespace Business.Abstract
     public interface IUserService : ICrudService<User>
     {
         List<OperationClaim> GetClaims(User user);
+
+        User GetAuthUser();
         User GetByMail(string email);
     }
 }

@@ -1,4 +1,5 @@
-﻿using Entities.Concrete.Dto.Response;
+﻿using Core.Utilities.Results.Abstract;
+using Entities.Concrete.Dto.Response;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +10,10 @@ namespace Business.Abstract
 {
     public interface ICrudService<T> : IService
     {
-        List<T> GetAll();
-        T Get(int id);
-        T Create(T entity);
-        void Update(T entity);
-        void Delete(int id);
+        IDataResult<List<T>> GetAll();
+        IDataResult<T> Get(int id);
+        IDataResult<T> Create(T entity);
+        IResult Update(T entity);
+        IResult Delete(int id);
     }
 }

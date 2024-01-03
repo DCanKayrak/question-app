@@ -18,6 +18,6 @@ namespace Entities.Concrete
         public Category Category { get; set; }
         public int UserId { get; set; }
         public User User { get; set; }
-        public Boolean Status { get; set; }
+        public Boolean Status { get; set; } = true;
     }
 }

@@ -4,6 +4,7 @@ using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Validation;
 using Entities.Concrete;
 using Entities.Concrete.Dto.Request.Question;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -27,14 +28,24 @@ namespace WebApi.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            return Ok(_questionService.GetAll());
+            var result = _questionService.GetAll();
+            if (!result.Success)
+            {
+                return BadRequest(result.Message);
+            }
+            return Ok(result);
         }
 
         // GET api/<QuestionController>/5
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            return Ok(_questionService.Get(id));
+            var result = _questionService.Get(id);
+            if (!result.Success)
+            {
+                return BadRequest(result.Message);
+            }
+            return Ok(result);
         }
 
         // POST api/<QuestionController>
@@ -42,23 +53,36 @@ namespace WebApi.Controllers
         [ValidationAspect(typeof(QuestionValidator))]
         public IActionResult Post([FromBody] CreateQuestionDto request)
         {
-            return Ok(_questionService.Create(_mapper.Map<Question>(request)));
+            var result = _questionService.Create(_mapper.Map<Question>(request));
+            if (!result.Success)
+            {
+                return BadRequest(result.Message);
+            }
+            return Ok(result);
         }
 
         // PUT api/<QuestionController>/5
         [HttpPut]
         public IActionResult Put([FromBody] UpdateQuestionDto request)
         {
-            _questionService.Update(_mapper.Map<Question>(request));
-            return Ok();
+            var result = _questionService.Update(_mapper.Map<Question>(request));
+            if (!result.Success)
+            {
+                return BadRequest(result.Message);
+            }
+            return Ok(result);
         }
 
         // DELETE api/<QuestionController>/5
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            _questionService.Delete(id);
-            return Ok();
+            var result = _questionService.Delete(id);
+            if (!result.Success)
+            {
+                return BadRequest(result.Message);
+            }
+            return Ok(result);
         }
     }
 }

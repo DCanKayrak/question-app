@@ -18,11 +18,14 @@ namespace DataAccess.Concrete.EntityFramework.Context
         public DbSet<Category> Category {  get; set; }
         public DbSet<OperationClaim> OperationClaims { get; set; }
         public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
+        public DbSet<Answer> Answers { get; set; }
 
         private IConfiguration _configuration;
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseNpgsql("User ID=postgres;Password=postgres;Server=localhost;Port=5433;Database=question_app;Integrated Security=true;Pooling=true;");
+
+            base.OnConfiguring(optionsBuilder);
         }
     }
 }

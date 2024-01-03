@@ -9,7 +9,6 @@ namespace Entities.Concrete.Dto.Request.Question
 {
     public class CreateQuestionDto : IDto
     {
-        public int UserId { get; set; }
         public int CategoryId { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }

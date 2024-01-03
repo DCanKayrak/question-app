@@ -23,31 +23,54 @@ namespace WebApi.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            return Ok(_categoryService.GetAll());
+            var result = _categoryService.GetAll();
+            if (!result.Success)
+            {
+                return BadRequest(result.Message);
+            }
+            return Ok(result);
         }
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            return Ok(_categoryService.Get(id));
+            var result = _categoryService.Get(id);
+            if (!result.Success)
+            {
+                return BadRequest(result.Message);
+            }
+            return Ok(result);
         }
 
         [HttpPost]
         public IActionResult Create(CreateCategoryDto req)
         {   
-                return Ok(_categoryService.Create(_mapper.Map<Category>(req)));
+            var result = _categoryService.Create(_mapper.Map<Category>(req));
+            if (!result.Success)
+            {
+                return BadRequest(result.Message);
+            }
+            return Ok(result);
         }
         [HttpPut]
         public IActionResult Update(UpdateCategoryDto req)
         {
-                _categoryService.Update(_mapper.Map<Category>(req));
-                return Ok();
+            var result = _categoryService.Update(_mapper.Map<Category>(req));
+            if (!result.Success)
+            {
+                return BadRequest(result.Message);
+            }
+            return Ok(result);
         }
 
         [HttpDelete]
         public IActionResult Delete(int id)
         {
-                _categoryService.Delete(id);
-                return Ok();        
+            var result = _categoryService.Delete(id);
+            if (!result.Success)
+            {
+                return BadRequest(result.Message);
+            }
+            return Ok(result);
         }
     }
 }

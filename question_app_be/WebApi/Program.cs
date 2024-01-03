@@ -26,7 +26,12 @@ IConfiguration Configuration = builder.Configuration;
 builder.Services.AddControllers();
 var tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+})
     .AddJwtBearer(options =>
     {
         options.TokenValidationParameters = new TokenValidationParameters
@@ -48,13 +53,43 @@ builder.Services.AddDependencyResolvers(new ICoreModule[]
 
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApi", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Your API Name", Version = "v1" });
+
+    // Swagger UI'da "Authorize" butonu görüntülenmesi ve
+    // "Bearer" tipinde bir token kullanýlacaðýný belirtiyoruz.
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Description = "JWT Authorization header using the Bearer scheme",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer"
+    });
+
+    // Swagger UI'da "Authorize" butonuna týklandýðýnda istenilen kapsamýn belirlenmesi.
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+            {
+                {
+                    new OpenApiSecurityScheme
+                    {
+                        Reference = new OpenApiReference
+                        {
+                            Type = ReferenceType.SecurityScheme,
+                            Id = "Bearer"
+                        }
+                    },
+                    new string[] {}
+                }
+            });
 });
+
+        // Diðer servis konfigürasyonlar
+
 
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowOrigin",
-    builder => builder.WithOrigins("https://localhost:7174"));
+    builder => builder.WithOrigins("https://localhost:3000"));
 });
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -72,7 +107,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors(builder => builder.WithOrigins("https://localhost:7174").AllowAnyHeader());
+app.UseCors(builder => builder.WithOrigins("https://localhost:3000").AllowAnyHeader());
 app.UseHttpsRedirection();
 
 app.UseAuthentication();

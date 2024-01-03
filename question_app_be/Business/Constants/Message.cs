@@ -8,19 +8,9 @@ namespace Business.Constants
 {
     public static class Message
     {
-        public static string AddToCar = "Araç eklendi.";
-        public static string AddToBrand = "Marka eklendi.";
-        public static string RemoveBrand = "Marka silindi.";
-        public static string AllBrandsListed = "Markalar listelendi.";
-        public static string GetBrandMessage = "Marka görüntülendi.";
-        public static string UpdateBrand = "Marka güncellendi.";
-        public static string GetAllCarMessage = "Bütün araçlar listelendi.";
-        public static string GetCarDetailMessage = "Araç detayları listelendi.";
-        public static string RemoveCar = "Araç silindi";
-        public static string UpdateCar = "Araç güncellendi.";
-        public static string AddColour = "Renk eklendi";
-        public static string GetAllColoursMessage = "Renkler listelendi";
-        public static string RemoveColour = "Renk silindi";
+        public static string QuestionGetAllSuccess = "Sorular başarıyla getirildi";
+        public static string QuestionCreated = "Sorunuz oluşturuldu";
+
         public static string AuthorizationDenied = "Yetkiniz yok !";
         public static string UserNotFound = "Kullanıcı bulunamadı";
         public static string PasswordError = "Şifre hatalı";

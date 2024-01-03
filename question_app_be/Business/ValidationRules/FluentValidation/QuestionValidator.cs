@@ -10,14 +10,14 @@ namespace Business.ValidationRules.FluentValidation
 {
     public class QuestionValidator : AbstractValidator<CreateQuestionDto>
     {
-        public int UserId { get; set; }
         public int CategoryId { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
 
         public QuestionValidator()
         {
-            RuleFor(c => c.UserId).GreaterThan(0);
+            RuleFor(req => req.Title).NotEmpty();
+            RuleFor(req => req.Description).NotEmpty();
         }
     }
 }

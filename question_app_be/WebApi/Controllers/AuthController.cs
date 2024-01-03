@@ -5,7 +5,6 @@ using Entities.Concrete;
 using Entities.Concrete.Dto.Request.Auth;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using WebApi.utils.constants;
 
 namespace WebApi.Controllers
 {

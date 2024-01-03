@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Entities.Concrete;
+using Entities.Concrete.Dto.Request.Answer;
 using Entities.Concrete.Dto.Request.Category;
 using Entities.Concrete.Dto.Request.Question;
 using Entities.Concrete.Dto.Response;
@@ -11,6 +12,11 @@ namespace WebApi.utils
         public AutoMapperProfile()
         {
             // Question Mappers
+            CreateMap<CreateAnswerDto, Answer>();
+            CreateMap<Answer, CreateAnswerDto>();
+            CreateMap<UpdateAnswerDto, Answer>();
+            CreateMap<Answer, AnswerResponse>();
+
             CreateMap<CreateQuestionDto, Question>();
             CreateMap<UpdateQuestionDto, Question>();
             CreateMap<Question, QuestionResponse>();

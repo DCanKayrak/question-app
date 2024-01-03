@@ -65,3 +65,4 @@ C:\Users\danya\OneDrive\Masaüstü\Çalışmalarım\question_app\question_app_be
 C:\Users\danya\OneDrive\Masaüstü\Çalışmalarım\question_app\question_app_be\WebApi\obj\Debug\net7.0\WebApi.pdb
 C:\Users\danya\OneDrive\Masaüstü\Çalışmalarım\question_app\question_app_be\WebApi\obj\Debug\net7.0\WebApi.genruntimeconfig.cache
 C:\Users\danya\OneDrive\Masaüstü\Çalışmalarım\question_app\question_app_be\WebApi\obj\Debug\net7.0\ref\WebApi.dll
+C:\Users\danya\OneDrive\Masaüstü\Çalışmalarım\question_app\question_app_be\WebApi\obj\Debug\net7.0\WebApi.MvcApplicationPartsAssemblyInfo.cs
