@@ -1,11 +1,29 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import { MakeAnswer } from '../components/MakeAnswer';
+import { GetWithoutAuth } from '../utils/service/HttpService';
 
 export const Question = (props) => {
     const { questionId } = useParams();
+
+    const GetQuestions = () => {
+        // Fetch işlemi
+fetch('https://localhost:7048/api/Question')
+.then(response => response.json())
+.then(data => console.log(data))
+.catch(error => console.error('Hata:', error));
+
+    }
+
+    const handleGetQuestions = () => {
+        console.log(GetQuestions);
+    }
+
+    useEffect(() => {
+        GetQuestions();
+      }, [])
 
   return (
     <div>
