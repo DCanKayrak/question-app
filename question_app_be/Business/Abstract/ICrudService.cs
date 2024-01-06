@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace Business.Abstract
 {
-    public interface ICrudService<T> : IService
+    public interface ICrudService<TEntity,TDto> : IService
     {
-        IDataResult<List<T>> GetAll();
-        IDataResult<T> Get(int id);
-        IDataResult<T> Create(T entity);
-        IResult Update(T entity);
+        IDataResult<List<TDto>> GetAll();
+        IDataResult<TDto> Get(int id);
+        IDataResult<TDto> Create(TEntity entity);
+        IResult Update(TEntity entity);
         IResult Delete(int id);
     }
 }

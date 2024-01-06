@@ -1,4 +1,6 @@
-﻿using Business.Abstract;
+﻿using AutoMapper;
+using Business.Abstract;
+using Business.DependencyResolvers.Mapper;
 using Core.Entity.Concrete;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
@@ -20,16 +22,20 @@ namespace Business.Concrete
     {
         private IUserRepository _userRepository;
         private IHttpContextAccessor _httpContextAccessor;
+        private IMapper _mapper;
 
-        public UserManager(IUserRepository userRepository, IHttpContextAccessor httpContextAccessor)
+        public UserManager(IUserRepository userRepository, 
+            IHttpContextAccessor httpContextAccessor,
+            IMapper mapper)
         {
             _userRepository = userRepository;
             _httpContextAccessor = httpContextAccessor;
+            _mapper = mapper;
         }
-        public IDataResult<User> Create(User entity)
+        public IDataResult<UserResponse> Create(User entity)
         {
             _userRepository.Create(entity);
-            return new SuccessDataResult<User>(entity);
+            return new SuccessDataResult<UserResponse>(_mapper.Map<UserResponse>(entity));
         }
 
         public IResult Delete(int id)
@@ -38,14 +44,14 @@ namespace Business.Concrete
             return new SuccessResult();
         }
 
-        public IDataResult<User> Get(int id)
+        public IDataResult<UserResponse> Get(int id)
         {
-            return new SuccessDataResult<User>(_userRepository.Get(u => u.Id == id));
+            return new SuccessDataResult<UserResponse>(_mapper.Map<UserResponse>(_userRepository.Get(u => u.Id == id)));
         }
 
-        public IDataResult<List<User>> GetAll()
+        public IDataResult<List<UserResponse>> GetAll()
         {
-            return new SuccessDataResult<List<User>>(_userRepository.GetAll(null));
+            return new SuccessDataResult<List<UserResponse>>(MapperHelper<User,UserResponse>.MapList(_userRepository.GetAll(null)));
         }
         public User GetByMail(string email)
         {

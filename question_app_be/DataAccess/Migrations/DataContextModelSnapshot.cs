@@ -46,6 +46,10 @@ namespace DataAccess.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("text");
@@ -72,6 +76,10 @@ namespace DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("User");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("Core.Entity.Concrete.UserOperationClaim", b =>
@@ -174,6 +182,13 @@ namespace DataAccess.Migrations
                     b.ToTable("Questions");
                 });
 
+            modelBuilder.Entity("Entities.Concrete.UserImpl", b =>
+                {
+                    b.HasBaseType("Core.Entity.Concrete.User");
+
+                    b.HasDiscriminator().HasValue("UserImpl");
+                });
+
             modelBuilder.Entity("Entities.Concrete.Question", b =>
                 {
                     b.HasOne("Entities.Concrete.Category", "Category")
@@ -182,10 +197,10 @@ namespace DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Core.Entity.Concrete.User", "User")
-                        .WithMany()
+                    b.HasOne("Entities.Concrete.UserImpl", "User")
+                        .WithMany("Questions")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Category");
@@ -194,6 +209,11 @@ namespace DataAccess.Migrations
                 });
 
             modelBuilder.Entity("Entities.Concrete.Category", b =>
+                {
+                    b.Navigation("Questions");
+                });
+
+            modelBuilder.Entity("Entities.Concrete.UserImpl", b =>
                 {
                     b.Navigation("Questions");
                 });

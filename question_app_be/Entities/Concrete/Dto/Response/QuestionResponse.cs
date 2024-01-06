@@ -12,8 +12,9 @@ namespace Entities.Concrete.Dto.Response
         public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public Category Category { get; set; }
-        public User User { get; set; }
+        public CategoryResponse Category { get; set; }
+        public AnswerResponse Answer { get; set; }
+        public UserResponse User { get; set; }
         public Boolean Status { get; set; }
     }
 }

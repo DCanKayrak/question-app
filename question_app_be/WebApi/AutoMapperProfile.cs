@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Core.Entity.Concrete;
 using Entities.Concrete;
 using Entities.Concrete.Dto.Request.Answer;
 using Entities.Concrete.Dto.Request.Category;
@@ -16,6 +17,7 @@ namespace WebApi.utils
             CreateMap<Answer, CreateAnswerDto>();
             CreateMap<UpdateAnswerDto, Answer>();
             CreateMap<Answer, AnswerResponse>();
+            CreateMap<AnswerResponse, Answer>();
 
             CreateMap<CreateQuestionDto, Question>();
             CreateMap<UpdateQuestionDto, Question>();
@@ -24,6 +26,9 @@ namespace WebApi.utils
             CreateMap<CreateCategoryDto, Category>();
             CreateMap<UpdateCategoryDto, Category>();
             CreateMap<Category, CategoryResponse>();
+
+            CreateMap<User,UserResponse>();
+            CreateMap<UserResponse, User>();
         }
     }
 }

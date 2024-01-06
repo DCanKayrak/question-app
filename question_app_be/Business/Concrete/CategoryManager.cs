@@ -22,7 +22,7 @@ namespace Business.Concrete
             _mapper = mapper;
         }
 
-        public IDataResult<Category> Create(Category entity)
+        public IDataResult<CategoryResponse> Create(Category entity)
         {
             throw new NotImplementedException();
         }
@@ -32,12 +32,12 @@ namespace Business.Concrete
             throw new NotImplementedException();
         }
 
-        public IDataResult<Category> Get(int id)
+        public IDataResult<CategoryResponse> Get(int id)
         {
             throw new NotImplementedException();
         }
 
-        public IDataResult<List<Category>> GetAll()
+        public IDataResult<List<CategoryResponse>> GetAll()
         {
             throw new NotImplementedException();
         }

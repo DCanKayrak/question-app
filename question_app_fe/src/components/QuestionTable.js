@@ -1,6 +1,26 @@
-import React from 'react'
+import { React, useEffect, useState } from 'react';
+import { GetWithoutAuth } from '../utils/service/HttpService';
 
 export default function QuestionTable() {
+    const [questions, setQuestions] = useState([]);
+
+    const GetQuestions = () => {
+        // Fetch işlemi
+        GetWithoutAuth('https://localhost:7048/api/Question')
+            .then(response => response.json())
+            .then(data => setQuestions(data.data))
+            .catch(error => console.error('Hata:', error));
+
+    }
+
+    const handleGetQuestions = () => {
+        GetQuestions();
+    }
+
+    useEffect(() => {
+        handleGetQuestions()
+    }, [])
+
     return (
         <div>
             <table class="table text-center">
@@ -13,30 +33,19 @@ export default function QuestionTable() {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row"><a href='/questions/1'>Div Nasıl Ortalanır ? </a></th>
-                        <td>Yazılım</td>
-                        <td><p><i style={{color: 'green'}} class="fa-solid fa-circle-check"></i> Cevaplandı</p></td>
-                        <td>Mehmet</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">EntityFramework Hk. </th>
-                        <td>Yazılım</td>
-                        <td><p><i style={{color: 'green'}} class="fa-solid fa-circle-check"></i> Cevaplandı</p></td>
-                        <td>Ahmet</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Div Nasıl Ortalanır ? </th>
-                        <td>Yazılım</td>
-                        <td><p><i style={{color: 'red'}} class="fa-solid fa-circle-xmark"></i> Cevaplanmadı</p></td>
-                        <td>Cevdet</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Div Nasıl Ortalanır ? </th>
-                        <td>Yazılım</td>
-                        <td><p><i style={{color: 'red'}} class="fa-solid fa-circle-xmark"></i> Cevaplanmadı</p></td>
-                        <td>Fikret</td>
-                    </tr>
+                    {
+                        questions.map(q => {
+                            return (<tr>
+                                <th scope="row"><a href={'/questions/'+q.id}>{q.title}</a></th>
+                                <td>{q.categoryId}</td>
+                                <td>{
+                                    q.status == 1 ? <p><i style={{ color: 'red' }} class="fa-solid fa-circle-xmark"></i> Çözüm Bekliyor</p>:
+                                    <p><i style={{ color: 'green' }} class="fa-solid fa-circle-check"></i> Çözüldü</p>
+                                }</td>
+                                <td>Mehmet</td>
+                            </tr>)
+                        })
+                    }
                 </tbody>
             </table>
         </div>
