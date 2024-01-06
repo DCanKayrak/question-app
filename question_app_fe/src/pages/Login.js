@@ -7,33 +7,43 @@ import { PostWithoutAuth } from '../utils/service/HttpService';
 export const Login = () => {
 
     const [email, setEmail] = useState("");
+    const [error, setError] = useState("");
+    const [success, setSuccess] = useState("");
     const [password, setPassword] = useState("");
 
     const navigate = useNavigate();
 
     const sendRequest = () => {
-        PostWithoutAuth(("http://localhost:7048/api/Auth/Login"),{
+        PostWithoutAuth(("https://localhost:7048/api/Auth/Login"),{
             email: email,
             password:password
         })
             .then((res) => res.json())
             .then((result) => {
-                localStorage.setItem("tokenKey", result.token);
-            }).catch((err) => console.log(err))
+                if(result.success){
+                    setError(null)
+                    localStorage.setItem("tokenKey", result.data.token);
+                    setSuccess(result.message)
+                    navigate("/")
+                }
+                else {
+                    setSuccess(null)
+                    console.log(result.message)
+                    setError(result.message)
+                }
+                
+            }).catch((err) => console.log(err.message))
     }
 
 
-    const handleRegister = () => {
+    const handleLogin = () => {
         sendRequest()
         setEmail("")
         setPassword("")
-        //navigate("/")
     }
 
     useEffect(() => {
-        console.log(email)
-        console.log(password)
-    },[email,password])
+    },[email,password,error])
 
     return (
         <div className='align-center justify-content-center'>
@@ -46,19 +56,18 @@ export const Login = () => {
                             </div>
                         </div>
                         <div class="card-body">
-                            <form>
+                                {success == null ? <div className='bg-danger'>{error}</div> : <div className='bg-success'>{success}</div>}
                                 <div class="form-group">
                                     <label for="username">Mail Adresiniz</label>
-                                    <input onChange={event => setEmail(event.target.value)} type="text" name="email" class="form-control" required />
+                                    <input value={email} onChange={event => setEmail(event.target.value)} type="text" name="email" class="form-control" required />
 
                                 </div>
                                 <div class="form-group mb-3">
                                     <label for="password">Şifre</label>
-                                    <input onChange={event => setPassword(event.target.value)} type="password" name="password" class="form-control" required />
+                                    <input value={password} onChange={event => setPassword(event.target.value)} type="password" name="password" class="form-control" required />
                                 </div>
                                 <span>Eğer zaten hesabın yoksa <a href='/register'>Kayıt Olmak için</a></span>
-                                <button onClick={handleRegister} class="btn btn-dark btn-lg">Giriş Yap</button>
-                            </form>
+                                <button onClick={handleLogin} class="btn btn-dark btn-lg">Giriş Yap</button>
                         </div>
                     </div>
                 </div>

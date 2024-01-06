@@ -32,7 +32,8 @@ export const Question = (props) => {
         <div className='container'>
             <div className='row mt-5'>
                 <div className='col-9'>
-                    <h5 className=''>{question.data && question.data.title}</h5>
+                <a className='btn btn-warning'><i class="fa-solid fa-arrow-left"></i> Geri Dön</a>
+                    <h5 className='mt-3'>{question.data && question.data.title}</h5>
                     <p className='mt-5'>{question.data && question.data.description}</p>
                     <MakeAnswer></MakeAnswer>
                 </div>

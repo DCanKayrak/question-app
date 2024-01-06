@@ -39,17 +39,19 @@ namespace WebApi.Controllers
         public IActionResult Login(LoginRequestDto req)
         {
             var userToLogin = _authService.Login(req);
-            var result = _authService.CreateAccessToken(userToLogin.Data);
+            
             if (!userToLogin.Success)
             {
-                return BadRequest(userToLogin.Message);
+                return BadRequest(userToLogin);
             }
+            var result = _authService.CreateAccessToken(userToLogin.Data);
+
             if (result.Success)
             {
-                return Ok(result.Data);
+                return Ok(result);
             }
 
-            return BadRequest(result.Message);
+            return BadRequest(result);
 
         }
     }

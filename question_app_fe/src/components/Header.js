@@ -1,6 +1,15 @@
-import React from 'react'
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function Header() {
+
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("tokenKey");
+    navigate("/")
+  }
+
     return (
         <div>
             <header class="p-3 bg-dark">
@@ -21,8 +30,10 @@ export default function Header() {
         </form>
 
         <div class="text-end">
-          <a href='/login' class="btn btn-outline-light me-2">Giriş Yap</a>
-          <a href='/register' class="btn btn-warning">Kayıt Ol</a>
+          {
+            localStorage.getItem("tokenKey") == null ? (<div><a href='/login' class="btn btn-outline-light me-2">Giriş Yap</a>
+          <a href='/register' class="btn btn-warning">Kayıt Ol</a></div>) : (<div><a onClick={handleLogout} class="btn btn-outline-light me-2">Çıkış Yap</a></div>)
+          }
         </div>
       </div>
     </div>

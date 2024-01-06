@@ -12,6 +12,7 @@ export const MakeAnswer = () => {
                 <button className='btn btn-success'>
                     Soruyu Cevapla
                 </button>
+                <button className='btn btn-warning'><i class="fa-solid fa-arrow-up-from-bracket"></i> Resim İle Cevap Ver</button>
             </div>
         </div>
     )

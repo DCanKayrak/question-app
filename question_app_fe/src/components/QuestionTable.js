@@ -37,12 +37,12 @@ export default function QuestionTable() {
                         questions.map(q => {
                             return (<tr>
                                 <th scope="row"><a href={'/questions/'+q.id}>{q.title}</a></th>
-                                <td>{q.categoryId}</td>
+                                <td>{q.category.name}</td>
                                 <td>{
                                     q.status == 1 ? <p><i style={{ color: 'red' }} class="fa-solid fa-circle-xmark"></i> Çözüm Bekliyor</p>:
                                     <p><i style={{ color: 'green' }} class="fa-solid fa-circle-check"></i> Çözüldü</p>
                                 }</td>
-                                <td>Mehmet</td>
+                                <td>{q.user.email}</td>
                             </tr>)
                         })
                     }
