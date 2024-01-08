@@ -1,6 +1,9 @@
 ﻿using AutoMapper;
 using Business.Abstract;
+using Business.Constants;
+using Business.DependencyResolvers.Mapper;
 using Core.Utilities.Results.Abstract;
+using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.Concrete.Dto.Response;
@@ -39,7 +42,7 @@ namespace Business.Concrete
 
         public IDataResult<List<CategoryResponse>> GetAll()
         {
-            throw new NotImplementedException();
+            return new SuccessDataResult<List<CategoryResponse>>(MapperHelper<Category,CategoryResponse>.MapList(_categoryRepository.GetAll(null)));
         }
 
         public IResult Update(Category entity)

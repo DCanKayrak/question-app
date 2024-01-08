@@ -10,7 +10,7 @@ namespace Entities.Concrete.Dto.Response
     public class AnswerResponse : IDto
     {
         public int Id { get; set; }
-        public int UserId { get; set; }
+        public UserResponse User { get; set; }
         public int QuestionId { get; set; }
         public string Text { get; set; }
     }

@@ -29,11 +29,11 @@ export const GetWithoutAuth = (url) => {
 
 export const PostWithAuth = (url, body) => {
 
-    var request = fetch("/api"+url,  {
+    var request = fetch(url,  {
         method: "POST", 
         headers: {
           "Content-Type": "application/json",
-          "Authorization" : localStorage.getItem("tokenKey"),
+          "Authorization" : "Bearer " + localStorage.getItem("tokenKey"),
         },
         body : JSON.stringify(body),
       })

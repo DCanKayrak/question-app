@@ -1,9 +1,66 @@
-import React from 'react';
+import { React, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import { PostWithoutAuth } from '../utils/service/HttpService';
 
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 export const Register = () => {
+
+    
+    const [email, setEmail] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [password, setPassword] = useState("");
+    const [repassword, setRepassword] = useState("");
+
+    const [error, setError] = useState("");
+    const [success, setSuccess] = useState("");
+
+    const navigate = useNavigate();
+
+    const sendRequest = () => {
+        PostWithoutAuth(("https://localhost:7048/api/Auth/Register"),{
+            email: email,
+            firstName: firstName,
+            lastName: lastName,
+            password:password
+        })
+            .then((res) => res.json())
+            .then((result) => {
+                if(result.success){
+                    setError(null)
+                    setSuccess(result.message)
+                    navigate("/")
+                }
+                else {
+                    setSuccess(null)
+                    console.log(result.message)
+                    setError(result.message)
+                }
+                
+            }).catch((err) => console.log(err.message))
+    }
+
+
+    const handleRegister = () => {
+        if (password === repassword) {
+            sendRequest()
+        }
+        else {
+            console.log("Şifreler aynı değil.")
+        }
+        
+        setEmail("")
+        setFirstName("")
+        setLastName("")
+        setPassword("")
+    }
+
+    useEffect(() => {
+    },[email,password,error])
+
     return (
         <div className='align-center justify-content-center'>
             <div>
@@ -15,18 +72,19 @@ export const Register = () => {
                             </div>
                         </div>
                         <div class="card-body">
+                        {success == null ? <div className='bg-danger'>{error}</div> : <div className='bg-success'>{success}</div>}
                             <form class="mb-3">
                                 <div class="form-group">
-                                    <label for="username">Kullanıcı Adı</label>
-                                    <input type="text" name="username" class="form-control" required />
+                                    <label for="email">Mail Adresiniz</label>
+                                    <input onChange={ event => setEmail(event.target.value) } type="text" name="email" class="form-control" required />
                                 </div>
                                 <div class="form-group">
-                                    <label for="username">Adınız</label>
-                                    <input type="text" name="username" class="form-control" required />
+                                    <label for="firstname">Adınız</label>
+                                    <input onChange={ event => setFirstName(event.target.value) } type="text" name="firstname" class="form-control" required />
                                 </div>
                                 <div class="form-group">
-                                    <label for="username">Kullanıcı Adı</label>
-                                    <input type="text" name="username" class="form-control" required />
+                                    <label for="lastname">Soyadınız</label>
+                                    <input onChange={ event => setLastName(event.target.value) } type="text" name="lastname" class="form-control" required />
                                 </div>
 
                                 <div class='form-group mt-3 mb-3'>
@@ -39,21 +97,20 @@ export const Register = () => {
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="inputPassword5" class="form-label">Şifre</label>
-                                    <input type="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock" />
+                                    <label for="password" class="form-label">Şifre</label>
+                                    <input onChange={ event => setPassword(event.target.value) } type="password" id="password" class="form-control" aria-describedby="passwordHelpBlock" />
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="inputPassword5" class="form-label">Şifre (Tekrar)</label>
-                                    <input type="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock" />
+                                    <label for="repassword" class="form-label">Şifre (Tekrar)</label>
+                                    <input onChange={ event => setRepassword(event.target.value) } type="password" id="repassword" class="form-control" aria-describedby="passwordHelpBlock" />
                                     <div id="passwordHelpBlock" class="form-text">
                                         Şifreniz 8 harften kısa olamaz
                                     </div>
                                 </div>
                             </form>
                             <div class='mb-3'><span>Eğer zaten hesabın varsa <a href='/login'>Giriş yapmak için</a></span></div>
-
-                            <button type="submit" class="btn btn-dark btn-lg">Kayıt Ol</button>
+                            <button onClick={ handleRegister } class="btn btn-dark btn-lg">Kayıt Ol</button>
                         </div>
                     </div>
                 </div>
