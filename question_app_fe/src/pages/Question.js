@@ -8,6 +8,7 @@ import { GetWithoutAuth } from '../utils/service/HttpService';
 export const Question = (props) => {
     const { questionId } = useParams();
     const [question, setQuestion] = useState([]);
+    const [image, setImage] = useState("");
 
     const GetQuestion = async () => {
         // Fetch işlemi
@@ -17,8 +18,26 @@ export const Question = (props) => {
             .catch(error => console.error('Hata:', error));
     }
 
+    const GetImage = async () => {
+        try {
+            const response = await GetWithoutAuth('https://localhost:7048/api/AnswerImage/34');
+            
+            if (!response.ok) {
+                throw new Error('HTTP isteği başarısız: ' + response.statusText);
+            }
+    
+            const blobData = await response.blob();
+            const imageUrl = URL.createObjectURL(blobData);
+    
+            setImage(imageUrl);
+        } catch (error) {
+            console.error('Hata:', error);
+        }
+    }
+
     const handleGetQuestion = () => {
         GetQuestion();
+        GetImage();
         console.log(question)
     }
 
@@ -30,6 +49,7 @@ export const Question = (props) => {
         <div>
             <Header></Header>
             <div className='container'>
+            <img src={image}></img>
                 <div className='row mt-5'>
                     <div className='col-9'>
                         <a href='/' className='btn btn-warning'><i class="fa-solid fa-arrow-left"></i> Geri Dön</a>

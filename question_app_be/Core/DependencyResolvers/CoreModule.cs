@@ -1,4 +1,5 @@
-﻿using Core.IoC;
+﻿using Core.Helpers;
+using Core.IoC;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -15,6 +16,7 @@ namespace Core.DependencyResolvers
         public void Load(IServiceCollection services)
         {
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddSingleton<IFileHelper,FileHelperManager>();
             services.AddSingleton<Stopwatch>();
         }
     }

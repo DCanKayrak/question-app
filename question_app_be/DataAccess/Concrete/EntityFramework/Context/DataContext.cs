@@ -1,5 +1,6 @@
 ﻿using Core.Entity.Concrete;
 using Entities.Concrete;
+using Entities.Concrete.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
@@ -19,6 +20,8 @@ namespace DataAccess.Concrete.EntityFramework.Context
         public DbSet<OperationClaim> OperationClaims { get; set; }
         public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
         public DbSet<Answer> Answers { get; set; }
+        public DbSet<AnswerImage> AnswerImages { get; set; }
+        public DbSet<Role> Roles { get; set; }
 
         private IConfiguration _configuration;
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

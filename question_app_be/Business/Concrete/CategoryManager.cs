@@ -7,6 +7,7 @@ using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.Concrete.Dto.Response;
+using Entities.Concrete.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

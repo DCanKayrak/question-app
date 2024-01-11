@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "1l+RUwrnqx65J8YP4nlace3adtVvCDkOvBRKMb/t0x67/NWjU8R77SFqmrDnV9ktZwluo5fFA9UpKEx866fWKg==",
+  "dgSpecHash": "RbXpoYfMkN7KgV9XvhvX8suP+gjcCFaQXZEVLW0VMayp6pdJ9QpgAxB8BgnF0wuYNhIgfofwgdCYN0zbU0gxzQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\danya\\OneDrive\\Masaüstü\\Çalışmalarım\\question_app\\question_app_be\\Business\\Business.csproj",
   "expectedPackageFiles": [
@@ -13,6 +13,8 @@
     "C:\\Users\\danya\\.nuget\\packages\\microsoft.aspnetcore.http\\2.1.34\\microsoft.aspnetcore.http.2.1.34.nupkg.sha512",
     "C:\\Users\\danya\\.nuget\\packages\\microsoft.aspnetcore.http.abstractions\\2.1.1\\microsoft.aspnetcore.http.abstractions.2.1.1.nupkg.sha512",
     "C:\\Users\\danya\\.nuget\\packages\\microsoft.aspnetcore.http.features\\5.0.17\\microsoft.aspnetcore.http.features.5.0.17.nupkg.sha512",
+    "C:\\Users\\danya\\.nuget\\packages\\microsoft.aspnetcore.mvc.abstractions\\2.1.38\\microsoft.aspnetcore.mvc.abstractions.2.1.38.nupkg.sha512",
+    "C:\\Users\\danya\\.nuget\\packages\\microsoft.aspnetcore.routing.abstractions\\2.1.1\\microsoft.aspnetcore.routing.abstractions.2.1.1.nupkg.sha512",
     "C:\\Users\\danya\\.nuget\\packages\\microsoft.aspnetcore.webutilities\\2.1.1\\microsoft.aspnetcore.webutilities.2.1.1.nupkg.sha512",
     "C:\\Users\\danya\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\danya\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.14\\microsoft.entityframeworkcore.7.0.14.nupkg.sha512",

@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
 using Core.Entity.Concrete;
 using Entities.Concrete;
+using Entities.Concrete.Dto.Request;
 using Entities.Concrete.Dto.Request.Answer;
 using Entities.Concrete.Dto.Request.Category;
 using Entities.Concrete.Dto.Request.Question;
 using Entities.Concrete.Dto.Response;
+using Entities.Concrete.Models;
 
 namespace WebApi.utils
 {
@@ -29,6 +31,9 @@ namespace WebApi.utils
 
             CreateMap<User,UserResponse>();
             CreateMap<UserResponse, User>();
+
+            CreateMap<CreateAnswerImgDto, AnswerImage> ();
+            CreateMap<AnswerImage,AnswerImageResponse>();
         }
     }
 }

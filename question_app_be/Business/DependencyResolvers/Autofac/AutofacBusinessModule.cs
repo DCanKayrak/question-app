@@ -24,6 +24,8 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<CategoryManager>().As<ICategoryService>();
             builder.RegisterType<AnswerManager>().As<IAnswerService>();
             builder.RegisterType<JwtHelper>().As<ITokenHelper>();
+            builder.RegisterType<AnswerImageManager>().As<IAnswerImageService>();
+            builder.RegisterType<RoleManager>().As<IRoleService>();
 
             // Repository
             builder.RegisterType<EfAuthDal>().As<IAuthRepository>();
@@ -31,6 +33,8 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<EfQuestionDal>().As<IQuestionRepository>();
             builder.RegisterType<EfAnswerDal>().As<IAnswerRepository>();
             builder.RegisterType<EfCategoryDal>().As<ICategoryRepository>();
+            builder.RegisterType<EfAnswerImageDal>().As<IAnswerImageRepository>();
+            builder.RegisterType<EfRoleDal>().As<IRoleRepository>();
 
             base.Load(builder);
         }
