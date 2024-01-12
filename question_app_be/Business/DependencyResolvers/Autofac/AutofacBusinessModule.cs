@@ -1,6 +1,9 @@
 ﻿using Autofac;
+using Autofac.Extras.DynamicProxy;
 using Business.Abstract;
 using Business.Concrete;
+using Castle.DynamicProxy;
+using Core.Utilities.Interceptors;
 using Core.Utilities.Security.JWT;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
@@ -26,6 +29,7 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<JwtHelper>().As<ITokenHelper>();
             builder.RegisterType<AnswerImageManager>().As<IAnswerImageService>();
             builder.RegisterType<RoleManager>().As<IRoleService>();
+            builder.RegisterType<UserOperationManager>().As<IUserOperationClaimService>();
 
             // Repository
             builder.RegisterType<EfAuthDal>().As<IAuthRepository>();
@@ -35,8 +39,15 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<EfCategoryDal>().As<ICategoryRepository>();
             builder.RegisterType<EfAnswerImageDal>().As<IAnswerImageRepository>();
             builder.RegisterType<EfRoleDal>().As<IRoleRepository>();
+            builder.RegisterType<EfUserOperationClaimDal>().As<IUserOperationClaimRepository>();
 
-            base.Load(builder);
+            var assembly = System.Reflection.Assembly.GetExecutingAssembly();
+
+            builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces()
+                .EnableInterfaceInterceptors(new ProxyGenerationOptions()
+                {
+                    Selector = new AspectInterceptorSelector()
+                }).SingleInstance();
         }
     }
 }

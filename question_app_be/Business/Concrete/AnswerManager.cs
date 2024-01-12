@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects;
 using Business.DependencyResolvers.Mapper;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
@@ -32,6 +33,8 @@ namespace Business.Concrete
             _questionRepository = questionRepository;
 
         }
+
+        [SecuredOperation("Öğretmen")]
         public IDataResult<AnswerResponse> Create(Answer entity)
         {
             entity.UserId = _userService.GetAuthUser().Id;

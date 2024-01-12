@@ -18,11 +18,16 @@ namespace Business.Concrete
     public class AuthManager : IAuthService
     {
 
-        IUserService _userService;
-        ITokenHelper _tokenHelper;
-        public AuthManager(IUserService userService, ITokenHelper tokenHelper)
+        private IUserService _userService;
+        private IUserOperationClaimService _userOperationClaimService;
+        private ITokenHelper _tokenHelper;
+        public AuthManager(
+            IUserService userService,
+            IUserOperationClaimService userOperationClaimService,
+            ITokenHelper tokenHelper)
         {
             _tokenHelper = tokenHelper;
+            _userOperationClaimService = userOperationClaimService;
             _userService = userService;
 
         }
@@ -61,7 +66,15 @@ namespace Business.Concrete
                 PasswordSalt = passwordSalt,
                 Status = true
             };
-            _userService.Create(user);
+
+            var createdUser = _userService.Create(user).Data;
+            UserOperationClaim c = new UserOperationClaim()
+            {
+                UserId = createdUser.Id,
+                OperationClaimId = req.UserType,
+            };
+            _userOperationClaimService.Create(c);
+
             return new SuccessDataResult<User>(user, Message.UserRegistered);
         }
 

@@ -46,7 +46,6 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         public IActionResult Create([FromBody] CreateAnswerDto req)
         {
             var result = _answerService.Create(_mapper.Map<Answer>(req));
