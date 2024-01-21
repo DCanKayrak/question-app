@@ -53,7 +53,6 @@ namespace WebApi.Controllers
 
         // POST api/<QuestionController>
         [HttpPost]
-        [ValidationAspect(typeof(QuestionValidator))]
         public IActionResult Post([FromBody] CreateQuestionDto request)
         {
             var result = _questionService.Create(_mapper.Map<Question>(request));

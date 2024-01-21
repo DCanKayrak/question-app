@@ -2,6 +2,8 @@
 using Business.Abstract;
 using Business.Constants;
 using Business.DependencyResolvers.Mapper;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Validation;
 using Core.Entity.Abstract;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
@@ -40,20 +42,29 @@ namespace Business.Concrete
             _mapper = mapper;
         }
 
+        [ValidationAspect(typeof(QuestionValidator))]
         public IDataResult<QuestionResponse> Create(Question entity)
         {
-            CategoryResponse category = _mapper.Map<CategoryResponse>(_categoryRepository.Get(c => c.Id == entity.CategoryId));
+            try
+            {
+                CategoryResponse category = _mapper.Map<CategoryResponse>(_categoryRepository.Get(c => c.Id == entity.CategoryId));
 
-            entity.UserId = _userService.GetAuthUser().Id;
-            UserResponse user = _mapper.Map<UserResponse>(_userService.Get(entity.UserId).Data);
+                entity.UserId = _userService.GetAuthUser().Id;
+                UserResponse user = _mapper.Map<UserResponse>(_userService.Get(entity.UserId).Data);
 
-            _questionRepository.Create(entity);
+                _questionRepository.Create(entity);
 
-            var result = _mapper.Map<QuestionResponse>(entity);
-            result.Category = category;
-            result.User = user;
+                var result = _mapper.Map<QuestionResponse>(entity);
+                result.Category = category;
+                result.User = user;
 
-            return new SuccessDataResult<QuestionResponse>(result,Message.QuestionCreated);
+                return new SuccessDataResult<QuestionResponse>(result, Message.QuestionCreated);
+            }
+            catch(Exception e)
+            {
+                return null;
+            }
+            
         }
 
         public IResult Delete(int id)

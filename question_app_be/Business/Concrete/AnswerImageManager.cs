@@ -55,7 +55,7 @@ namespace Business.Concrete
 
         public string GetImagePathById(int id)
         {
-            return _answerImageRepository.Get(i => i.Id == id).FilePath;
+            return _answerImageRepository.Get(i => i.Id == id)?.FilePath;
         }
 
         public IResult Update(IFormFile file, AnswerImage entity)
