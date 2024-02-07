@@ -45,11 +45,10 @@ namespace Business.Concrete
         [ValidationAspect(typeof(QuestionValidator))]
         public IDataResult<QuestionResponse> Create(Question entity)
         {
-            try
-            {
-                CategoryResponse category = _mapper.Map<CategoryResponse>(_categoryRepository.Get(c => c.Id == entity.CategoryId));
+                CategoryResponse category = MapperHelper<Category,CategoryResponse>.Map(_categoryRepository.Get(c => c.Id == entity.CategoryId));
 
                 entity.UserId = _userService.GetAuthUser().Id;
+                entity.CreationTime = DateTime.UtcNow;
                 UserResponse user = _mapper.Map<UserResponse>(_userService.Get(entity.UserId).Data);
 
                 _questionRepository.Create(entity);
@@ -59,12 +58,6 @@ namespace Business.Concrete
                 result.User = user;
 
                 return new SuccessDataResult<QuestionResponse>(result, Message.QuestionCreated);
-            }
-            catch(Exception e)
-            {
-                return null;
-            }
-            
         }
 
         public IResult Delete(int id)
@@ -88,6 +81,12 @@ namespace Business.Concrete
             return new SuccessDataResult<QuestionResponse>(result);
         }
 
+        public IDataResult<List<QuestionResponse>> GetWithString(string q)
+        {
+            List<Question> questions = _questionRepository.GetAll(tq => tq.Title.Contains(q));
+            return new SuccessDataResult<List<QuestionResponse>>(MapperHelper<Question,QuestionResponse>.MapList(questions));
+        }
+
         public IDataResult<List<QuestionResponse>> GetAll()
         {
             var result = new List<QuestionResponse>();
@@ -107,9 +106,18 @@ namespace Business.Concrete
             return new SuccessDataResult<List<QuestionResponse>>(result,Message.QuestionGetAllSuccess);
         }
 
+        [ValidationAspect(typeof(QuestionValidator))]
         public IResult Update(Question request)
         {
             _questionRepository.Update(request);
+            return new SuccessResult();
+        }
+
+        public IResult ChangeStatus(int id)
+        {
+            var question = _questionRepository.Get(q => q.Id == id);
+            question.Status = false;
+            _questionRepository.Update(question);
             return new SuccessResult();
         }
     }

@@ -14,13 +14,44 @@ namespace DataAccess.Concrete.EntityFramework
     public class EfEntityRepository<TEntity, TContext> : IEntityRepository<TEntity> where TEntity : class, IEntity, new()
         where TContext : DbContext, new()
     {
+        private string creatingExceptionMessage;
+        private string updatingExceptionMessage;
+        private string readingExceptionMessage;
+        private string deletingExceptionMessage;
+
+        public EfEntityRepository()
+        {
+            this.creatingExceptionMessage = "Ekleme sırasında bir hata oluştu.";
+            this.updatingExceptionMessage = "Güncellerken bir hata oluştu.";
+            this.readingExceptionMessage = "Getirirken bir hata oluştu.";
+            this.deletingExceptionMessage = "Silerken bir hata oluştu.";
+        }
+        public EfEntityRepository(
+            string creatingExceptionMessage,
+            string updatingExceptionMessage,
+            string readingExceptionMessage,
+            string deletingExceptionMessage
+            )
+        {
+            this.creatingExceptionMessage = creatingExceptionMessage;
+            this.updatingExceptionMessage = updatingExceptionMessage;
+            this.readingExceptionMessage = readingExceptionMessage;
+            this.deletingExceptionMessage = deletingExceptionMessage;
+        }
         public void Create(TEntity entity)
         {
             using (TContext context = new TContext())
             {
+                try
+                {
                     var ent = context.Entry(entity);
                     ent.State = EntityState.Added;
                     context.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(creatingExceptionMessage);
+                }
             }
         }
 
@@ -28,9 +59,16 @@ namespace DataAccess.Concrete.EntityFramework
         {
             using (TContext context = new TContext())
             {
+                try
+                {
                     var ent = context.Entry(entity);
                     ent.State = EntityState.Deleted;
                     context.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    throw new Exception(deletingExceptionMessage);
+                }
             }
         }
 
@@ -38,8 +76,15 @@ namespace DataAccess.Concrete.EntityFramework
         {
             using (TContext context = new TContext())
             {
-                TEntity entity = context.Set<TEntity>().FirstOrDefault(filter);
-                return entity;
+                try
+                {
+                    TEntity? entity = context.Set<TEntity>().FirstOrDefault(filter);
+                    return entity;
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(readingExceptionMessage);
+                }
             }
         }
         public List<TEntity> GetAll(Expression<Func<TEntity, bool>> filter)
@@ -54,9 +99,16 @@ namespace DataAccess.Concrete.EntityFramework
         {
             using (TContext context = new TContext())
             {
+                try
+                {
                     var ent = context.Entry(entity);
                     ent.State = EntityState.Modified;
                     context.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    throw new Exception(updatingExceptionMessage);
+                }
             }
         }
     }

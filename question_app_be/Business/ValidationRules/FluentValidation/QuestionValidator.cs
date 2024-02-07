@@ -17,9 +17,8 @@ namespace Business.ValidationRules.FluentValidation
 
         public QuestionValidator()
         {
-            RuleFor(req => req.Title).NotEmpty();
             RuleFor(req => req.Title).MinimumLength(3).WithMessage("Başlık en az 3 harften oluşmalıdır.");
-            RuleFor(req => req.Description).NotEmpty();
+            RuleFor(req => req.Description).MinimumLength(3).WithMessage("Açıklama en az 3 harften oluşmalıdır.");
         }
     }
 }

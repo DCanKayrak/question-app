@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Core.Extensions;
+using Core.IoC;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,18 +11,38 @@ namespace WebApi.Controllers
     public class RoleController : ControllerBase
     {
         private IRoleService _roleService;
+        private IHttpContextAccessor _httpContextAccessor;
 
         public RoleController(
             IRoleService roleService
             )
         {
             _roleService = roleService;
+            _httpContextAccessor = ServiceTool.ServiceProvider.GetService<IHttpContextAccessor>();
         }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public IActionResult GetAllRoles()
         {
-            throw new NotImplementedException();
+            var result = _roleService.GetAll();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest();
+        }
+
+        [HttpGet("/{role}")]
+        public IActionResult isRoleExists(string role)
+        { 
+            var roleClaims = _httpContextAccessor.HttpContext.User.ClaimRoles();
+            if (roleClaims.Contains(role))
+            {
+                return Ok();
+            }
+
+            return BadRequest();
         }
 
         [HttpGet("{id}")]

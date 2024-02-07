@@ -11,11 +11,11 @@ using System.Threading.Tasks;
 
 namespace Business.Concrete
 {
-    public class UserOperationManager : IUserOperationClaimService
+    public class UserOperationClaimManager : IUserOperationClaimService
     {
         private IUserOperationClaimRepository _userOperationClaimRepository;
 
-        public UserOperationManager(
+        public UserOperationClaimManager(
             IUserOperationClaimRepository userOperationClaimRepository
             )
         {

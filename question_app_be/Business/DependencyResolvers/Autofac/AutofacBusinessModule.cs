@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Core.Entity.Concrete;
 
 namespace Business.DependencyResolvers.Autofac
 {
@@ -28,8 +29,9 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<AnswerManager>().As<IAnswerService>();
             builder.RegisterType<JwtHelper>().As<ITokenHelper>();
             builder.RegisterType<AnswerImageManager>().As<IAnswerImageService>();
-            builder.RegisterType<RoleManager>().As<IRoleService>();
-            builder.RegisterType<UserOperationManager>().As<IUserOperationClaimService>();
+            builder.RegisterType<OperationClaimManager>().As<IRoleService>();
+            builder.RegisterType<UserOperationClaimManager>().As<IUserOperationClaimService>();
+            builder.RegisterType<OperationClaimManager>().As<IRoleService>();
 
             // Repository
             builder.RegisterType<EfAuthDal>().As<IAuthRepository>();
@@ -38,8 +40,8 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<EfAnswerDal>().As<IAnswerRepository>();
             builder.RegisterType<EfCategoryDal>().As<ICategoryRepository>();
             builder.RegisterType<EfAnswerImageDal>().As<IAnswerImageRepository>();
-            builder.RegisterType<EfRoleDal>().As<IRoleRepository>();
             builder.RegisterType<EfUserOperationClaimDal>().As<IUserOperationClaimRepository>();
+            builder.RegisterType<EfOperationClaimDal>().As<IOperationClaimRepository>();
 
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
 

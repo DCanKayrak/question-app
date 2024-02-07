@@ -13,5 +13,6 @@ namespace Entities.Concrete
         public int UserId { get; set; }
         public int QuestionId { get; set; }
         public string Text { get; set; }
+        public DateTime CreationTime { get; set; } = DateTime.Now;
     }
 }

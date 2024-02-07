@@ -24,5 +24,6 @@
 
   <ItemGroup>
     <Folder Include="CCS\Exceptions\" />
+    <Folder Include="Exceptions\" />
   </ItemGroup>
 </Project>

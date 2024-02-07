@@ -51,11 +51,23 @@ namespace WebApi.Controllers
             return Ok(result);
         }
 
+        [HttpGet("search/{q}")]
+        public IActionResult Get(string q)
+        {
+            var result = _questionService.GetWithString(q);
+            if (!result.Success)
+            {
+                return BadRequest(result.Message);
+            }
+
+            return Ok(result);
+        }
+
         // POST api/<QuestionController>
         [HttpPost]
         public IActionResult Post([FromBody] CreateQuestionDto request)
         {
-            var result = _questionService.Create(_mapper.Map<Question>(request));
+            var result = _questionService.Create(MapperHelper<CreateQuestionDto,Question>.Map(request));
             if (!result.Success)
             {
                 return BadRequest(result.Message);

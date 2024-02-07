@@ -13,5 +13,6 @@ namespace Entities.Concrete.Models
         public int UserId { get; set; }
         public int QuestionId { get; set; }
         public string FilePath { get; set; }
+        public DateTime CreationTime { get; } = DateTime.Now;
     }
 }

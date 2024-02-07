@@ -28,6 +28,7 @@ namespace WebApi.utils
             CreateMap<CreateCategoryDto, Category>();
             CreateMap<UpdateCategoryDto, Category>();
             CreateMap<Category, CategoryResponse>();
+            CreateMap<CategoryResponse,Category>();
 
             CreateMap<User,UserResponse>();
             CreateMap<UserResponse, User>();

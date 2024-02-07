@@ -1,6 +1,8 @@
 ﻿using Business.Abstract;
 using Business.BusinessAspects;
 using Business.DependencyResolvers.Mapper;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Validation;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
@@ -21,26 +23,26 @@ namespace Business.Concrete
     {
         private IAnswerRepository _answerRepository;
         private IUserService _userService;
-        private IQuestionRepository _questionRepository;
+        private IQuestionService _questionService;
 
         public AnswerManager(
             IAnswerRepository answerRepository, 
             IUserService userService,
-            IQuestionRepository questionRepository)
+            IQuestionService questionService)
         {
             _answerRepository = answerRepository;
             _userService = userService;
-            _questionRepository = questionRepository;
+            _questionService = questionService;
 
         }
 
         [SecuredOperation("Öğretmen")]
+        [ValidationAspect(typeof(AnswerValidator))]
         public IDataResult<AnswerResponse> Create(Answer entity)
         {
             entity.UserId = _userService.GetAuthUser().Id;
-            Question question = _questionRepository.Get(q=>q.Id == entity.QuestionId);
-            question.Status = false;
-            _questionRepository.Update(question);
+            _questionService.ChangeStatus(entity.UserId);
+            entity.CreationTime = DateTime.Now;
             _answerRepository.Create(entity);
             return new SuccessDataResult<AnswerResponse>(MapperHelper<Answer,AnswerResponse>.Map(entity));
         }
